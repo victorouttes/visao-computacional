@@ -11,11 +11,11 @@ def media_global(hist):
 def media_classes(hist, limiar):
     p1, p2 = prob_classes(hist, limiar)
     m1 = 0
-    for i in range(0, limiar):
+    for i in range(0, limiar+1):
         m1 += i * hist[i]
 
     m2 = 0
-    for i in range(limiar, len(hist)):
+    for i in range(limiar+1, len(hist)):
         m2 += i * hist[i]
 
     med1 = 0
@@ -29,11 +29,11 @@ def media_classes(hist, limiar):
 
 def prob_classes(hist, limiar):
     p1 = 0
-    for i in range(0, limiar):
+    for i in range(0, limiar+1):
         p1 += hist[i]
 
     p2 = 0
-    for i in range(limiar, len(hist)):
+    for i in range(limiar+1, len(hist)):
         p2 += hist[i]
     return p1, p2
 
@@ -42,7 +42,7 @@ def var_max(p1, m1, p2, m2, mg):
     return p1 * (m1 - mg)**2 + p2 * (m2 - mg)**2
 
 
-img = cv2.imread('images/moon.jpg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread('images/H01.png', cv2.IMREAD_GRAYSCALE)
 qtd_pixels = img.size
 hist = cv2.calcHist([img], [0], None, [256], [0, 256])
 hist_normalizado = [h[0]/qtd_pixels for h in hist]
