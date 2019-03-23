@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 
 def media_global(hist):
@@ -60,5 +61,13 @@ for limiar in range(0, 256):
         limiar_best = limiar
 
 print('OTSU: ' + str(limiar_best))
-th1, img_bw = cv2.threshold(img, limiar_best, 255, cv2.THRESH_BINARY)
+
+img_bw = np.zeros(img.shape, dtype=np.uint8)
+for x in range(img.shape[0]):
+    for y in range(img.shape[1]):
+        if img[x, y] <= limiar_best:
+            img_bw[x, y] = 0
+        else:
+            img_bw[x, y] = 255
+
 cv2.imwrite('images/limiarizacao/otsu.png', img_bw)
